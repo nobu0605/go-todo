@@ -1,0 +1,208 @@
+2023/02/24 21:27:55 server.go:3217: http: panic serving [::1]:65375: open app/views/templates/layout.html: no such file or directory
+goroutine 20 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000115590})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x1400018e000}, {0x100f6c100, 0x100fdcf18}, {0x1400012b9f8?, 0x3, 0x1400012ba08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x1400018e000?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x1400012bad8?, {0x100fe09f0?, 0x1400018e000?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x1400018e000}, 0x1400016e100)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x14000115470?}, {0x100fe09f0, 0x1400018e000}, 0x1400016e100)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x14000176090, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:27:56 server.go:3217: http: panic serving [::1]:65376: open app/views/templates/layout.html: no such file or directory
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000115710})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x1400018e1c0}, {0x100f6c100, 0x100fdcf18}, {0x140000529f8?, 0x3, 0x14000052a08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x1400018e1c0?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x14000052ad8?, {0x100fe09f0?, 0x1400018e1c0?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x1400018e1c0}, 0x1400016e300)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x14000115650?}, {0x100fe09f0, 0x1400018e1c0}, 0x1400016e300)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x14000176240, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:27:56 server.go:3217: http: panic serving [::1]:65377: open app/views/templates/layout.html: no such file or directory
+goroutine 34 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000096180})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x140000ce000}, {0x100f6c100, 0x100fdcf18}, {0x140001259f8?, 0x3, 0x140000aaa08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x140000ce000?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x140000aaad8?, {0x100fe09f0?, 0x140000ce000?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x140000ce000}, 0x140000b8000)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x14000096090?}, {0x100fe09f0, 0x140000ce000}, 0x140000b8000)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x1400009a000, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:27:56 server.go:3217: http: panic serving [::1]:65378: open app/views/templates/layout.html: no such file or directory
+goroutine 36 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000096300})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x140000ce1c0}, {0x100f6c100, 0x100fdcf18}, {0x140000aa9f8?, 0x3, 0x140000aaa08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x140000ce1c0?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x140000aaad8?, {0x100fe09f0?, 0x140000ce1c0?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x140000ce1c0}, 0x140000b8100)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x14000096240?}, {0x100fe09f0, 0x140000ce1c0}, 0x140000b8100)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x1400009a1b0, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:28:01 server.go:3217: http: panic serving [::1]:65379: open app/views/templates/layout.html: no such file or directory
+goroutine 38 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000078120})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x14000210000}, {0x100f6c100, 0x100fdcf18}, {0x140000579f8?, 0x3, 0x14000057a08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x14000210000?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x14000057ad8?, {0x100fe09f0?, 0x14000210000?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x14000210000}, 0x1400007e000)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x14000078030?}, {0x100fe09f0, 0x14000210000}, 0x1400007e000)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x1400009a360, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:28:49 server.go:3217: http: panic serving [::1]:65380: open app/views/templates/layout.html: no such file or directory
+goroutine 39 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000078210})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x140002101c0}, {0x100f6c100, 0x100fdcf18}, {0x140000aa9f8?, 0x3, 0x140000aaa08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x140002101c0?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x140000aaad8?, {0x100fe09f0?, 0x140002101c0?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x140002101c0}, 0x140000b8200)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x14000096420?}, {0x100fe09f0, 0x140002101c0}, 0x140000b8200)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x1400009a3f0, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:28:49 server.go:3217: http: panic serving [::1]:65383: open app/views/templates/layout.html: no such file or directory
+goroutine 40 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x14000078330})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x14000210380}, {0x100f6c100, 0x100fdcf18}, {0x140000ab9f8?, 0x3, 0x140000aba08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x14000210380?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x140000abad8?, {0x100fe09f0?, 0x14000210380?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x14000210380}, 0x140000b8300)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x140000964e0?}, {0x100fe09f0, 0x14000210380}, 0x140000b8300)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x1400009a480, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/24 21:28:49 server.go:3217: http: panic serving [::1]:65384: open app/views/templates/layout.html: no such file or directory
+goroutine 8 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1854 +0xb0
+panic({0x100f90c80, 0x140000784b0})
+	/usr/local/go/src/runtime/panic.go:890 +0x248
+html/template.Must(...)
+	/usr/local/go/src/html/template/template.go:368
+go-todo/app/controllers.generateHTML({0x100fe09f0?, 0x14000210540}, {0x100f6c100, 0x100fdcf18}, {0x140000ab9f8?, 0x3, 0x140000aba08?})
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/server.go:20 +0x1f0
+go-todo/app/controllers.top({0x100fe09f0?, 0x14000210540?}, 0x3b?)
+	/Users/takanobusuzuki/develop/go/go-todo/app/controllers/route_main.go:10 +0x84
+net/http.HandlerFunc.ServeHTTP(0x140000abad8?, {0x100fe09f0?, 0x14000210540?}, 0x10?)
+	/usr/local/go/src/net/http/server.go:2122 +0x38
+net/http.(*ServeMux).ServeHTTP(0x0?, {0x100fe09f0, 0x14000210540}, 0x1400007e100)
+	/usr/local/go/src/net/http/server.go:2500 +0x13c
+net/http.serverHandler.ServeHTTP({0x140000783f0?}, {0x100fe09f0, 0x14000210540}, 0x1400007e100)
+	/usr/local/go/src/net/http/server.go:2936 +0x2c0
+net/http.(*conn).serve(0x14000200360, {0x100fe0c78, 0x14000115380})
+	/usr/local/go/src/net/http/server.go:1995 +0x518
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/02/25 19:45:52 base.go:75: table statuses has no column named name
+2023/02/25 19:49:35 base.go:75: table statuses has no column named name
+2023/02/25 19:49:41 base.go:75: table statuses has no column named name
+2023/02/25 19:50:16 base.go:75: table statuses has no column named name
+2023/02/25 19:54:42 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 19:57:06 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 19:58:12 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 19:58:15 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 19:58:29 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 19:58:31 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 19:59:39 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 20:00:56 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 20:03:55 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 20:05:44 base.go:75: UNIQUE constraint failed: statuses.name
+2023/02/25 20:07:11 base.go:73: UNIQUE constraint failed: statuses.name
+2023/02/25 20:07:13 base.go:73: UNIQUE constraint failed: statuses.name
+2023/02/25 20:14:10 todos.go:47: table todos has no column named title
+2023/02/25 20:14:19 todos.go:47: table todos has no column named title
+2023/02/25 20:15:09 todos.go:47: table todos has no column named title
+2023/02/25 20:15:33 todos.go:47: table todos has no column named status
+2023/02/25 20:16:11 todos.go:28: sql: expected 6 destination arguments in Scan, not 4
+2023/02/25 20:17:49 todos.go:30: sql: expected 6 destination arguments in Scan, not 4
+2023/02/25 20:37:07 todos.go:27: near ".": syntax error
+2023/02/25 20:38:08 todos.go:28: near "from": syntax error
+2023/02/25 20:38:23 todos.go:28: no such column: todo.title
+2023/02/25 20:38:40 todos.go:39: sql: expected 3 destination arguments in Scan, not 6
+2023/02/25 20:48:01 todos.go:42: sql: expected 3 destination arguments in Scan, not 6
+2023/02/25 20:48:38 todos.go:42: sql: expected 3 destination arguments in Scan, not 6
+2023/02/25 20:48:46 todos.go:42: sql: expected 3 destination arguments in Scan, not 6
+2023/02/25 20:51:10 todos.go:31: no such column: todos.createdAt
+2023/02/25 20:51:22 todos.go:43: sql: Scan error on column index 4, name "status": unsupported Scan, storing driver.Value type string into type *time.Time
+2023/02/27 17:21:40 todos.go:31: near "from": syntax error
