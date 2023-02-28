@@ -27,7 +27,7 @@ func init() {
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		uuid STRING NOT NULL UNIQUE,
 		name STRING,
-		email STRING,
+		email STRING UNIQUE,
 		password STRING,
 		created_at DATETIME)`, "users")
 
@@ -48,6 +48,7 @@ func init() {
 		uuid STRING NOT NULL UNIQUE,
 		email STRING,
 		user_id INTEGER,
+		expiration_date DATETIME,
 		created_at DATETIME)`, "sessions")
 
 	Db.Exec(cmdS)

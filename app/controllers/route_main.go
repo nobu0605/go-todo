@@ -26,14 +26,3 @@ func top(w http.ResponseWriter, r *http.Request) {
 	// }
 }
 
-func login(w http.ResponseWriter, r *http.Request) {
-	// _, err := session(w, r)
-	// frontUrl := os.Getenv("FRONT_URL")
-
-	// w.Header().Set("Access-Control-Allow-Headers", frontUrl)
-	// w.Header().Set("Access-Control-Allow-Origin", frontUrl)
-	json.NewEncoder(w).Encode("hoge")
-	// } else {
-	// 	http.Redirect(w, r, "/todos", 302)
-	// }
-}
