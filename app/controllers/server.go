@@ -1,60 +1,51 @@
 package controllers
 
 import (
-	"fmt"
-	"html/template"
+	"errors"
 	"net/http"
 	"os"
-	"regexp"
-	"strconv"
 
 	"go-todo/app/models"
 	"go-todo/config"
+	"go-todo/utils/errorhandler"
 )
 
-func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...string) {
-	var files []string
-	for _, file := range filenames {
-		files = append(files, fmt.Sprintf("app/views/templates/%s.html", file))
-	}
-
-	templates := template.Must(template.ParseFiles(files...))
-	templates.ExecuteTemplate(writer, "layout", data)
-}
 
 func session(writer http.ResponseWriter, request *http.Request) (sess models.Session, err error) {
-	cookie, err := request.Cookie("_cookie")
-	if err == nil {
-		sess = models.Session{UUID: cookie.Value}
-		// if ok, _ := sess.CheckSession(); !ok {
-		// 	err = errors.New("Invalid session")
-		// }
+	auth := request.Header.Get("authorization")
+	if auth == "" { return }
+
+	sess = models.Session{UUID: auth}
+	if ok, _ := sess.CheckSession(); !ok {
+		err = errors.New("Invalid session")
 	}
 	return
 }
 
-var validPath = regexp.MustCompile("^/todos/(edit|save|update|delete)/([0-9]+)$")
 
-func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		q := validPath.FindStringSubmatch(r.URL.Path)
-		if q == nil {
-			http.NotFound(w, r)
-			return
-		}
-		id, _ := strconv.Atoi(q[2])
-		fmt.Println(id)
-		fn(w, r, id)
-	}
+func setHeaderMiddleware(w http.ResponseWriter) {
+	frontUrl := os.Getenv("FRONT_URL")
+	w.Header().Set("Access-Control-Allow-Origin", frontUrl)
+	w.Header().Set("Access-Control-Allow-Headers", "authorization")
+	w.Header().Set("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS")
 }
 
-func setHeaderMiddleware(next http.HandlerFunc) http.HandlerFunc {
-    return func(w http.ResponseWriter, r *http.Request) {
-		frontUrl := os.Getenv("FRONT_URL")
-		w.Header().Set("Access-Control-Allow-Origin", frontUrl)
-		w.Header().Set("Access-Control-Allow-Headers", frontUrl)
-		w.Header().Set( "Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS" )
-        next.ServeHTTP(w, r)
+func privateRoute(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		setHeaderMiddleware(w)
+		
+		_, err := session(w, r)
+		if err != nil {
+			errorhandler.MakeErrResponse(err,w,401)
+		} 
+		next.ServeHTTP(w, r)
+    }
+}
+
+func publicRoute(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		setHeaderMiddleware(w)
+		next.ServeHTTP(w, r)
     }
 }
 
@@ -62,9 +53,13 @@ func StartMainServer() error {
 	files := http.FileServer(http.Dir(config.Config.Static))
 	http.Handle("/static/", http.StripPrefix("/static/", files))
 	
-	http.HandleFunc("/", setHeaderMiddleware(top))
-	http.HandleFunc("/signup", setHeaderMiddleware(signup))
-	http.HandleFunc("/logout", setHeaderMiddleware(logout))
-	http.HandleFunc("/authenticate", setHeaderMiddleware(authenticate))
+	// Public Route
+	http.HandleFunc("/signup", publicRoute(signup))
+	http.HandleFunc("/logout", publicRoute(logout))
+	http.HandleFunc("/authenticate", publicRoute(authenticate))
+
+	// Private Route
+	http.HandleFunc("/", privateRoute(top))
+	http.HandleFunc("/getUser", privateRoute(getUser))
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }

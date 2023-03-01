@@ -9,20 +9,26 @@ import (
 )
 
 func top(w http.ResponseWriter, r *http.Request) {
-	// _, err := session(w, r)
-	// frontUrl := os.Getenv("FRONT_URL")
-
-	// w.Header().Set("Access-Control-Allow-Headers", frontUrl)
-	// w.Header().Set("Access-Control-Allow-Origin", frontUrl)
 	todos,err := models.GetTodos()
 	if err != nil {
 		log.Fatalln(err)
 	}
 	
-	fmt.Println("todos route",todos)
 	json.NewEncoder(w).Encode(todos)
-	// } else {
-	// 	http.Redirect(w, r, "/todos", 302)
-	// }
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) {
+	auth := r.Header.Get("authorization")
+	if auth == "" { return }
+
+	fmt.Println("auth",auth)
+	sess := models.Session{UUID: auth}
+	user, err := sess.GetUserBySession()
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	
+	json.NewEncoder(w).Encode(user)
 }
 

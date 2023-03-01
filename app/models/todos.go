@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"log"
 	"time"
 )
@@ -31,7 +30,6 @@ func GetTodos()(todos []Todo, err error){
 		log.Fatalln(err)
 	}
 	
-	fmt.Println(rows)
 	for rows.Next() {
 		var todo Todo
 		err = rows.Scan(&todo.ID,

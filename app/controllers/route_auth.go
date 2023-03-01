@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"go-todo/app/models"
 	"go-todo/utils/errorhandler"
 	"log"
@@ -14,7 +13,6 @@ func signup(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println("r.PostFormValue() ",r.PostFormValue("email"))
 	user := models.User{
 		Name:     r.PostFormValue("name"),
 		Email:    r.PostFormValue("email"),
@@ -48,13 +46,8 @@ func authenticate(w http.ResponseWriter, r *http.Request) {
 			errorhandler.MakeErrResponse(dbError,w,400)
 			return
 		}
-		cookie := http.Cookie{
-			Name:     "_cookie",
-			Value:    session.UUID,
-			HttpOnly: true,
-		}
-		http.SetCookie(w, &cookie)
-		json.NewEncoder(w).Encode("Status OK")
+		resp := map[string]string{"status":"OK","uuid":session.UUID}
+		json.NewEncoder(w).Encode(resp)
 	} else {
 		errorhandler.MakeErrResponse(errorhandler.ErrPaswordUnmatch,w,400)
 	}
