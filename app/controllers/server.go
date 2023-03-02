@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -15,6 +16,7 @@ func session(writer http.ResponseWriter, request *http.Request) (sess models.Ses
 	auth := request.Header.Get("authorization")
 	if auth == "" { return }
 
+	fmt.Println("auth",auth)
 	sess = models.Session{UUID: auth}
 	if ok, _ := sess.CheckSession(); !ok {
 		err = errors.New("Invalid session")
@@ -34,11 +36,15 @@ func privateRoute(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		setHeaderMiddleware(w)
 		
-		_, err := session(w, r)
+		sess, err := session(w, r)
+		fmt.Println("sess.ID",sess.ID)
 		if err != nil {
 			errorhandler.MakeErrResponse(err,w,401)
+		}else if sess.ID == 0{
+			// Do nothing
+		}else{
+			next.ServeHTTP(w, r)
 		} 
-		next.ServeHTTP(w, r)
     }
 }
 
@@ -61,5 +67,6 @@ func StartMainServer() error {
 	// Private Route
 	http.HandleFunc("/", privateRoute(top))
 	http.HandleFunc("/getUser", privateRoute(getUser))
+	http.HandleFunc("/getStatuses", privateRoute(getStatuses))
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }

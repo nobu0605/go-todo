@@ -14,6 +14,12 @@ type Todo struct {
 	CreatedAt time.Time `json:"createdAt"`
 }
 
+type Status struct {
+	ID        int `json:"id"`
+	Name   string `json:"name"`
+	CreatedAt time.Time `json:"createdAt"`
+}
+
 func GetTodos()(todos []Todo, err error){
 	cmd := `select 
 	todos.id,
@@ -60,4 +66,29 @@ func CreateTodo()(err error){
 		log.Fatalln(err)
 	}
 	return err
+}
+
+func GetStatuses()(statuses []Status, err error){
+	cmd := `select 
+	id,
+	name
+	from statuses`
+
+	rows, err := Db.Query(cmd)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	
+	for rows.Next() {
+		var status Status
+		err = rows.Scan(&status.ID,
+			&status.Name)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		statuses = append(statuses, status)
+	}
+	rows.Close()
+
+	return statuses, err
 }

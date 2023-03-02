@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"go-todo/app/models"
 	"log"
 	"net/http"
@@ -21,7 +20,6 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	auth := r.Header.Get("authorization")
 	if auth == "" { return }
 
-	fmt.Println("auth",auth)
 	sess := models.Session{UUID: auth}
 	user, err := sess.GetUserBySession()
 
@@ -30,5 +28,14 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	json.NewEncoder(w).Encode(user)
+}
+
+func getStatuses(w http.ResponseWriter, r *http.Request) {
+	statuses,err := models.GetStatuses()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	
+	json.NewEncoder(w).Encode(statuses)
 }
 
