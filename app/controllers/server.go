@@ -16,7 +16,6 @@ func session(writer http.ResponseWriter, request *http.Request) (sess models.Ses
 	auth := request.Header.Get("authorization")
 	if auth == "" { return }
 
-	fmt.Println("auth",auth)
 	sess = models.Session{UUID: auth}
 	if ok, _ := sess.CheckSession(); !ok {
 		err = errors.New("Invalid session")
@@ -28,7 +27,7 @@ func session(writer http.ResponseWriter, request *http.Request) (sess models.Ses
 func setHeaderMiddleware(w http.ResponseWriter) {
 	frontUrl := os.Getenv("FRONT_URL")
 	w.Header().Set("Access-Control-Allow-Origin", frontUrl)
-	w.Header().Set("Access-Control-Allow-Headers", "authorization")
+	w.Header().Set("Access-Control-Allow-Headers", "authorization, Content-Type")
 	w.Header().Set("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS")
 }
 
@@ -68,5 +67,6 @@ func StartMainServer() error {
 	http.HandleFunc("/", privateRoute(top))
 	http.HandleFunc("/getUser", privateRoute(getUser))
 	http.HandleFunc("/getStatuses", privateRoute(getStatuses))
+	http.HandleFunc("/createTodo", privateRoute(createTodo))
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }

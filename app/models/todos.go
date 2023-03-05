@@ -20,40 +20,94 @@ type Status struct {
 	CreatedAt time.Time `json:"createdAt"`
 }
 
-func GetTodos()(todos []Todo, err error){
-	cmd := `select 
-	todos.id,
-	todos.title,
-	todos.description,
-	statuses.name as status,
-	todos.created_at
-	from todos
-	left join statuses
-	on todos.status_id = statuses.id`
+type StatusWithTodos struct {
+	color  string `json:"color"`
+	Name   string `json:"name"`
+	Todos []Todo `json:"todos"`
+}
+
+func GetTodos()(statusesWithTodos map[int]map[string]interface{}, err error){
+	cmd := `select DISTINCT
+	statuses.id as status_id,
+	statuses.name as status
+	from statuses
+	left join todos
+	on statuses.id = todos.status_id
+	order by statuses.id asc`
 
 	rows, err := Db.Query(cmd)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	
-	for rows.Next() {
-		var todo Todo
-		err = rows.Scan(&todo.ID,
-			&todo.Title,
-			&todo.Description,
-			&todo.Status,
-			&todo.CreatedAt)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		todos = append(todos, todo)
-	}
-	rows.Close()
 
-	return todos, err
+	columns, err2 := rows.Columns()
+    if err2 != nil {
+        log.Fatalln(err)
+    }
+    count := len(columns)
+	values := make([]interface{}, count)
+    scanArgs := make([]interface{}, count)
+    for i := range values {
+        scanArgs[i] = &values[i]
+    }
+	
+	statusData := make(map[int]map[string]interface{})
+
+	index := 0
+    for rows.Next() {
+		status := make(map[string]interface{})
+        err := rows.Scan(scanArgs...)
+        if err != nil {
+            log.Fatalln(err)
+        }
+        for i, v := range values {
+			var todos = []Todo{}
+			if columns[i] == "status_id" && v != nil {
+				cmd := `select 
+				todos.id,
+				todos.title,
+				todos.description,
+				statuses.name as status
+				from todos
+				left join statuses
+				on todos.status_id = statuses.id
+				where todos.id in
+				(select id 
+				from todos where status_id = ?)`
+			
+				todoRows, err := Db.Query(cmd,v)
+				
+				if err != nil {
+					// 対象のステータスに該当のTodoがない場合、continue
+					continue
+				}
+				for todoRows.Next() {
+					var todo Todo
+					err = todoRows.Scan(
+						&todo.ID,
+						&todo.Title,
+						&todo.Description,
+						&todo.Status)
+					if err != nil {
+						log.Fatalln(err)
+					}
+					todos = append(todos, todo)
+				}
+				status["todos"] = todos
+				status["status_id"] = v
+			}else{
+				status["name"] = v
+				status["color"] = "white"
+			}
+        }
+		statusData[index] = status
+		index++
+    }
+	    
+	return statusData, err
 }
 
-func CreateTodo()(err error){
+func CreateTodo(title string, user_id float64, description string, status_id float64)(err error){
 	cmd := `insert into todos (
 		title,
 		user_id,
@@ -61,7 +115,7 @@ func CreateTodo()(err error){
 		status_id,
 		created_at ) values (?, ?, ?, ?, ?)`
 
-	_, err = Db.Exec(cmd, "content", 1, "description", 1, time.Now())
+	_, err = Db.Exec(cmd, title, user_id, description, status_id, time.Now())
 	if err != nil {
 		log.Fatalln(err)
 	}
