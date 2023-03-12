@@ -3152,3 +3152,6 @@ net/http.(*conn).serve(0x14000098990, {0x1006a85b8, 0x14000115200})
 	/usr/local/go/src/net/http/server.go:1995 +0x518
 created by net/http.(*Server).Serve
 	/usr/local/go/src/net/http/server.go:3089 +0x4e8
+2023/03/12 17:57:44 route_auth.go:22: このデータは既に登録済みです
+2023/03/12 18:04:03 route_main.go:28: sql: no rows in result set
+2023/03/12 18:06:58 route_auth.go:22: このデータは既に登録済みです
